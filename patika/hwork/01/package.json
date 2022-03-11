@@ -1,0 +1,14 @@
+{
+  "name": "hwork",
+  "version": "1.0.0",
+  "description": "for patika's first",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1"
+  }
+}
