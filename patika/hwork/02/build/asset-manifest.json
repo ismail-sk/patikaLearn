@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ismail-sk/patikaLearn/edit/main/patika/hwork/02/static/css/main.15af3a00.css",
+    "main.js": "/ismail-sk/patikaLearn/edit/main/patika/hwork/02/static/js/main.4c29de77.js",
+    "index.html": "/ismail-sk/patikaLearn/edit/main/patika/hwork/02/index.html",
+    "main.15af3a00.css.map": "/ismail-sk/patikaLearn/edit/main/patika/hwork/02/static/css/main.15af3a00.css.map",
+    "main.4c29de77.js.map": "/ismail-sk/patikaLearn/edit/main/patika/hwork/02/static/js/main.4c29de77.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.15af3a00.css",
+    "static/js/main.4c29de77.js"
+  ]
+}
