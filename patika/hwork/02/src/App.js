@@ -19,8 +19,6 @@ export default function App() {
   // helper states
   const [status, setStatus] = useState("all");
   const needToDoCount = useMemo(()=> toDoList.filter((todo) => !(todo.complete)).length , [toDoList]);
-  /* const [needToDoCount, setNeedToDoCount] = useState(0);
-  const [compToDoCount, setCompToDoCount] = useState(0); */
   const compToDoCount = useMemo(()=> (toDoList.length-needToDoCount), [toDoList]);
 
   // ticking handler for shifting beetween completed/nonCompleted
@@ -55,7 +53,7 @@ export default function App() {
   // finding non used IDs for adding task (addTask) (part of ToDoForm.js)
   const findDifID = (par) => {
     var bu = toDoList;
-    console.log(typeof(bu), bu)
+    //console.log(typeof(bu), bu)
 
     var largest = Number(par);
     for (var i=0; i<=par-1;i++){
@@ -88,16 +86,16 @@ export default function App() {
   
   // triggering items builder after related changes
   useEffect(() => {
-    console.log("Changed log ",toDoList);
+    //console.log("Changed log ",toDoList);
     filterHandler();
   },[toDoList, status])
   
   // counting items after every changes
   useEffect(() => {
-    console.log(
+    /*console.log(
       "All item count: ", toDoList.length,
       "need the todo count:", needToDoCount,
-      "completed item count: ", compToDoCount );
+      "completed item count: ", compToDoCount );*/
   }, [filterTodos && toDoList])
   
   // filtering by button values
