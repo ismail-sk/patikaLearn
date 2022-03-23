@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 // components
 import ToDoList from "./components/ToDoList";
@@ -18,8 +18,10 @@ export default function App() {
 
   // helper states
   const [status, setStatus] = useState("all");
-  const [needToDoCount, setNeedToDoCount] = useState(0);
-  const [compToDoCount, setCompToDoCount] = useState(0);
+  const needToDoCount = useMemo(()=> toDoList.filter((todo) => !(todo.complete)).length , [toDoList]);
+  /* const [needToDoCount, setNeedToDoCount] = useState(0);
+  const [compToDoCount, setCompToDoCount] = useState(0); */
+  const compToDoCount = useMemo(()=> (toDoList.length-needToDoCount), [toDoList]);
 
   // ticking handler for shifting beetween completed/nonCompleted
   const handleToggle = (id) => {
@@ -62,7 +64,7 @@ export default function App() {
             //console.log("new largest",bu[i].id);
         }
     }
-    //console.log(largest);
+    console.log(largest);
     return largest+1;
   };
 
@@ -86,19 +88,17 @@ export default function App() {
   
   // triggering items builder after related changes
   useEffect(() => {
-    //console.log("Changed log ",toDoList);
+    console.log("Changed log ",toDoList);
     filterHandler();
   },[toDoList, status])
   
-  // counting items after every changes (?)
+  // counting items after every changes
   useEffect(() => {
-    setNeedToDoCount(toDoList.filter((todo) => !(todo.complete)).length);
-    setCompToDoCount(toDoList.length-needToDoCount);/* 
     console.log(
       "All item count: ", toDoList.length,
       "need the todo count:", needToDoCount,
-      "completed item count: ", compToDoCount ); */
-  })
+      "completed item count: ", compToDoCount );
+  }, [filterTodos && toDoList])
   
   // filtering by button values
   const filterHandler = () => {
