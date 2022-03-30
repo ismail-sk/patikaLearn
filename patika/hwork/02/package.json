@@ -1,6 +1,7 @@
 {
   "name": "todoapp",
-  "homepage": "https://github.com/ismail-sk/patikaLearn/edit/main/patika/hwork/02/build/",
+  "homepage": "https://github.com/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build",
+  
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -21,8 +22,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
   "eslintConfig": {
-    "extends": [
+  "extends": [
       "react-app",
       "react-app/jest"
     ]
