@@ -1,175 +1,173 @@
-import React, { useEffect, useMemo, useState } from 'react';
-
-// components
-import ToDoList from "./components/ToDoList";
-import ToDoForm from "./components/ToDoForm";
-
-// example datas
-import data from "./components/data.json";
-
-// style
 import './App.css';
+import React, { useState, useMemo } from 'react';
+import ToDoList from './components/ToDoList';
 
-export default function App() {
+import defaultData from "./components/data.json";
+
+function App() {
+    const [theList, setTheList] = useState(defaultData);
+    const needToDoCount = useMemo(()=> theList.filter((todo) => !(todo.complete)).length , [theList]);
+    const compToDoCount = useMemo(()=> (Number(theList.length)-Number(needToDoCount)), [theList]);
+    const [status, setStatus] = useState("all");
+
+    const filterHandler = () => {
+      var tmp = [...theList];
+      switch (status) {
+
+        case "comp":
+          return(tmp.filter((todo) => todo.complete));
   
-  // main states
-  const [ toDoList, setToDoList ] = useState(data);
-  const [filterTodos, setFilterTodos] = useState([]);
-
-  // helper states
-  const [status, setStatus] = useState("all");
-  const needToDoCount = useMemo(()=> toDoList.filter((todo) => !(todo.complete)).length , [toDoList]);
-  const compToDoCount = useMemo(()=> (toDoList.length-needToDoCount), [toDoList]);
-
-  // ticking handler for shifting beetween completed/nonCompleted
-  const handleToggle = (id) => {
-    let mapped = toDoList.map(task => {
-      return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task};
-    });
-    setToDoList(mapped);
-  };
-
-  // "Clear Completed" button for removing completed items
-  const handleCleaner = () => {
-    if (compToDoCount){
-    let filtered = toDoList.filter((task) => {
-      //console.log(task.task);
-      return !task.complete;
-    });
-    //console.log( "last bef exit ", filtered);
-    setToDoList(filtered);}
-  };
-
-  // adding task (part of ToDoForm.js)
-  const addTask = (userInput ) => {
-    if(userInput === "") {
-      return false
-    }
-    let copy = [...toDoList];
-    let hold = { id: findDifID(toDoList.length), task: userInput, complete: false };
-    copy = [...copy, hold];
-    setToDoList(copy);    
-  };
-  // finding non used IDs for adding task (addTask) (part of ToDoForm.js)
-  const findDifID = (par) => {
-    var bu = toDoList;
-    //console.log(typeof(bu), bu)
-
-    var largest = Number(par);
-    for (var i=0; i<=par-1;i++){
-        if (bu[i].id>largest) {
-            largest = bu[i].id;
-            //console.log("new largest",bu[i].id);
-        }
-    }
-    console.log(largest);
-    return largest+1;
-  };
-
-  // deleting one task
-  const deleteTask = (deleteThis) => {
-    var delThis = Number(deleteThis.id);
-    //console.log("deleteThisID is: ",delThis.id);
-    var tmp = [...toDoList];
-
-    let findd = tmp.findIndex( (fnd) => {
-      //console.log(fnd.id,delThis);
-      if( fnd.id === delThis) {
-        //console.log("Found: id = ", fnd, " listID = ",tmp," object: ", fnd.task);
-        return fnd;
+        case "nonC":
+          return(tmp.filter((todo) => !(todo.complete)));
+  
+        default:
+          return(tmp);
+  
       }
-    });
-    tmp.splice(findd,1);
+    };
+    const showList = useMemo(filterHandler, [theList,status]);
+
+    // holding clicked button values for filtering
+    const filterStatusHandler = (e) => {
+      console.log("pre setted ", status);
+      setStatus(e.target.name);
+      console.log(e.target.name, "setted ", status);
+      filterHandler()
+    };
+    function Headers() {
+      const [ userInput, setUserInput ] = useState('');
+      
+      const handleChange = (e) => {
+        setUserInput(e.currentTarget.value)
+      };
+      
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        addTask(userInput);
+        setUserInput("");
+      };
     
-    setToDoList(tmp);
-  };
-  
-  // triggering items builder after related changes
-  useEffect(() => {
-    //console.log("Changed log ",toDoList);
-    filterHandler();
-  },[toDoList, status])
-  
-  // counting items after every changes
-  useEffect(() => {
-    /*console.log(
-      "All item count: ", toDoList.length,
-      "need the todo count:", needToDoCount,
-      "completed item count: ", compToDoCount );*/
-  }, [filterTodos && toDoList])
-  
-  // filtering by button values
-  const filterHandler = () => {
-    switch (status) {
+      // adding task
+      const addTask = (userInput ) => {
 
-      case "comp":
-        setFilterTodos(toDoList.filter((todo) => todo.complete));// todo.complete === true
-        break;
+        if(userInput === "") {
+          return false
+        }        
+        let copy = [...theList];
+        let hold = { id: findDifID(theList.length), task: userInput, complete: false };
+        copy = [hold, ...copy];
 
-      case "nonC":
-        setFilterTodos(toDoList.filter((todo) => !(todo.complete)));
-        break;
+        setTheList(copy);
+      };
+      // finding non used IDs for adding task (addTask)
+        const findDifID = (par) => {
+          var bu = theList;
+          //console.log(typeof(bu), bu)
+          var largest = Number(par);
+          for (var i=0; i<=par-1;i++) {
+            if (bu[i].id>largest) {
+              largest = bu[i].id;
+              //console.log("new largest",bu[i].id);
+            }
+          }
+          //console.log(largest);
+          return largest+1;
+        };
 
-      default:
-        setFilterTodos(toDoList);
-        break;
+    return (
+      <header className="header">
+          <h1>todos</h1>
+          <form onSubmit={handleSubmit}>
+            <input className="new-todo" placeholder="What needs to be done?" 
+               value={userInput} type="text" onChange={handleChange} /* autoFocus *//>
+          </form>
+        </header>
+    )
+  }
 
+  function MainBody( {checkAllToComp, invert=false} ) {
+
+    const allisCompleted = () =>{ console.log("invert is ", invert,"lissst", theList)
+    if(invert) {
+      {
+        checkAllToComp(theList.map((it)=> {
+          return {...it, complete: false}}))
+        }
+      }
+    else
+        checkAllToComp(theList.filter((item) => item.complete ? item.complete:  item.complete = true ))
+      }
+    
+      return (
+        <section className="main">
+            <input onClick={
+              () => {needToDoCount>0 ? allisCompleted(checkAllToComp  = setTheList)
+                : allisCompleted(checkAllToComp  = setTheList, invert=true)}}
+               className="toggle-all" type="checkbox" id="toggle-all"/>
+            <label htmlFor="toggle-all" className={theList.length === 0 ? "hidden" : "show"}>
+              Mark all as complete
+            </label>
+              
+              <ToDoList
+              buildList = {showList}
+              mainList = {theList}
+              changeList = {setTheList}
+              deleteTask = {setTheList}
+              />
+          </section>
+      )
     }
-  };
+  
+  function Footer( {removeTodos} ) {
 
-  // holding clicked button values for filtering
-  const filterStatusHandler = (e) => {
-    //console.log(e.target.value);
-    setStatus(e.target.value);
-  };
+    const clearCompleted = () => removeTodos(theList.filter((item) => !item.complete));
 
-  function ButtonBar() {
+    return (
+    <footer className="footer">
+      <span className="todo-count">
+        {/* <!-- This should be `0 items left` by default --> */}
+        <><strong>{needToDoCount}</strong> items left</>
+        {/*
+        needToDoCount>1 ?
+            <><strong>{needToDoCount}</strong> items left</> :
+              (
+                needToDoCount=== 1 ?
+                      <><strong>{needToDoCount}</strong> item left</> :
+                          <>All todos is done!</>
+                          ) */}
+      </span>
+
+      <ul className="filters">
+
+        <li>
+        <a className= {status === "all" ? "selected": undefined} name="all" onClick={filterStatusHandler}> All </a> 
+        </li>
+
+        <li>
+        <a className= {status === "nonC" ? "selected": undefined} name="nonC" onClick={filterStatusHandler} > Active </a>
+        </li>
+
+        <li>
+        <a className= {status === "comp" ? "selected": undefined} name="comp" onClick={filterStatusHandler}> Completed </a>
+        </li>
+
+      </ul>
+
+      {/* <!-- Hidden if no completed items are left ↓ --> */}
+      <button onClick={() => clearCompleted(removeTodos = setTheList)}
+      className={compToDoCount===0 ? "hidden" : "clear-completed"}>
+        Clear completed
+      </button>
+    </footer>
+    )
+  }
     return (
       <>
-      
-        <button className= {status === "all" ? "activeSelected": undefined} value="all" onClick={filterStatusHandler}> All </button> 
-        <button className= {status === "comp" ? "activeSelected": undefined} value="comp" onClick={filterStatusHandler}> Completed </button>
-        <button className= {status === "nonC" ? "activeSelected": undefined} value="nonC" onClick={filterStatusHandler} > Uncompleted </button>
-        <button onClick={handleCleaner} style={{ backgroundColor:"rgb(223, 210, 210)"}}>Clear Completed</button>
-      
-{/* {status === "comp" && "activeSelected"} -- this is returning false and react give error. "did you try the say false a class name?"--
-
-<form>
-<select onChange={filterStatusHandler} name='todos'>
-          <option value="all">All</option>
-          <option value="comp">Completed</option>
-          <option value="nonC">Uncompleted</option>
-        </select>
-</form> */}
+      <Headers />
+      <MainBody />
+      <Footer />
       </>
-    )
-  };
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>todos</h1>
-      </header>
-      
-        <div className='plane'>
-          <div className='controlBox'>
-            <ButtonBar/>
-            
-            <ToDoForm
-              addTask={addTask}
-              />
-          </div>
-        
-          <div className='box'>
-            <ToDoList
-              toDoList={toDoList}
-              handleToggle={handleToggle}
-              deleteTask={deleteTask}
-              filterTodos={filterTodos}
-              needToDoCount={needToDoCount}
-              />
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
+
+export default App;
