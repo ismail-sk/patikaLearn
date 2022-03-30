@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/patikaLearn/static/css/main.98a14495.css",
-    "main.js": "/patikaLearn/static/js/main.73838f7e.js",
-    "index.html": "/patikaLearn/index.html",
-    "main.98a14495.css.map": "/patikaLearn/static/css/main.98a14495.css.map",
-    "main.73838f7e.js.map": "/patikaLearn/static/js/main.73838f7e.js.map"
+    "main.css": "/patikalearn/static/css/main.98a14495.css",
+    "main.js": "/patikalearn/static/js/main.73838f7e.js",
+    "index.html": "/patikalearn/index.html",
+    "main.98a14495.css.map": "/patikalearn/static/css/main.98a14495.css.map",
+    "main.73838f7e.js.map": "/patikalearn/static/js/main.73838f7e.js.map"
   },
   "entrypoints": [
     "static/css/main.98a14495.css",
