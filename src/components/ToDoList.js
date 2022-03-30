@@ -63,7 +63,7 @@ export default function ToDoListBuilder( {buildList, mainList, changeList, delet
             <input className="toggle" type="checkbox" defaultChecked={todo.complete}
                 onClick={(e) => thickChange(e, todo.id)}/>
 
-            <label contenteditable="true" onKeyPress={
+            <label contentEditable="true" suppressContentEditableWarning={true} onKeyPress={
                 (e) => whachChange(e/* ,todo.id, todo.task */)}>{todo.task}</label>
 
             <p className="revision" onClick={(e) => recordRevision(e,todo.id)}></p>
