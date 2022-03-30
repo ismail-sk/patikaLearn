@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/patikaLearn/tree/main/patika/hwork/02/build/static/css/main.98a14495.css",
-    "main.js": "/patikaLearn/tree/main/patika/hwork/02/build/static/js/main.2c4aa3b7.js",
-    "index.html": "/patikaLearn/tree/main/patika/hwork/02/build/index.html",
-    "main.98a14495.css.map": "/patikaLearn/tree/main/patika/hwork/02/build/static/css/main.98a14495.css.map",
-    "main.2c4aa3b7.js.map": "/patikaLearn/tree/main/patika/hwork/02/build/static/js/main.2c4aa3b7.js.map"
+    "main.css": "/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build/static/css/main.98a14495.css",
+    "main.js": "/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build/static/js/main.2c4aa3b7.js",
+    "index.html": "/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build/index.html",
+    "main.98a14495.css.map": "/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build/static/css/main.98a14495.css.map",
+    "main.2c4aa3b7.js.map": "/ismail-sk/patikaLearn/tree/main/patika/hwork/02/build/static/js/main.2c4aa3b7.js.map"
   },
   "entrypoints": [
     "static/css/main.98a14495.css",
