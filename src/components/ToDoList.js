@@ -1,25 +1,19 @@
 import React from "react";
 import './edit.css';
 
-
 export default function ToDoListBuilder( {buildList, mainList, changeList, deleteTask}){
     
-    console.log("this will build: ",buildList, "this is main: ",mainList);
-    const thickChange = (e,inds) => {
-        /* console.log(e.target); e.preventDefault(); */
+    //console.log("this will build: ",buildList, "this is main: ",mainList);
+    const thickChange = (inds) => {
         let tempList = [...mainList];
          tempList.find( (fnd) => {
             //console.log("checked ",fnd, inds);
             if( fnd.id === inds) {
-                console.log("fund", fnd.task,fnd.complete);
                 fnd.complete = !fnd.complete;
-                console.log("changed with ", fnd.complete);
-
                 return true
             }
         }) 
         changeList(tempList);
-
     }
 
     const deleteHandler = (thisID) =>
@@ -28,7 +22,6 @@ export default function ToDoListBuilder( {buildList, mainList, changeList, delet
     const recordRevision = (e,thisid) => {
         const insadee = e.currentTarget.previousSibling.innerHTML;
 
-        // i can do same without using let, concat and find.
         let tmp = [];
         
         mainList.find( (fnd) => {
@@ -61,7 +54,7 @@ export default function ToDoListBuilder( {buildList, mainList, changeList, delet
     <li key={index} className={todo.complete ? "completed" : "view"}>
         <div  className="view">
             <input className="toggle" type="checkbox" defaultChecked={todo.complete}
-                onClick={(e) => thickChange(e, todo.id)}/>
+                onClick={() => thickChange(todo.id)}/>
 
             <label contentEditable="true" suppressContentEditableWarning={true} onKeyPress={
                 (e) => whachChange(e/* ,todo.id, todo.task */)}>{todo.task}</label>

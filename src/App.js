@@ -29,9 +29,12 @@ function App() {
 
     // holding clicked button values for filtering
     const filterStatusHandler = (e) => {
-      console.log("pre setted ", status);
+
+      // console.log("pre setted ", status);
+
       setStatus(e.target.name);
-      console.log(e.target.name, "setted ", status);
+
+      // console.log(e.target.name, "setted ", status);
       filterHandler()
     };
     function Headers() {
@@ -87,7 +90,8 @@ function App() {
 
   function MainBody( {checkAllToComp, invert=false} ) {
 
-    const allisCompleted = () =>{ console.log("invert is ", invert,"lissst", theList)
+    const allisCompleted = () =>{
+
     if(invert) {
       {
         checkAllToComp(theList.map((it)=> {
@@ -98,25 +102,28 @@ function App() {
         checkAllToComp(theList.filter((item) => item.complete ? item.complete:  item.complete = true ))
       }
     
-      return (
-        <section className="main">
-            <input onClick={
-              () => {needToDoCount>0 ? allisCompleted(checkAllToComp  = setTheList)
-                : allisCompleted(checkAllToComp  = setTheList, invert=true)}}
-               className="toggle-all" type="checkbox" id="toggle-all"/>
-            <label htmlFor="toggle-all" className={theList.length === 0 ? "hidden" : "show"}>
-              Mark all as complete
-            </label>
-              
-              <ToDoList
-              buildList = {showList}
-              mainList = {theList}
-              changeList = {setTheList}
-              deleteTask = {setTheList}
-              />
-          </section>
-      )
-    }
+    return (
+      <section className="main">
+          <input onClick={
+            () => {needToDoCount>0 ? allisCompleted(checkAllToComp  = setTheList)
+              : allisCompleted(checkAllToComp  = setTheList, invert=true)}
+            }
+
+             className="toggle-all" type="checkbox" id="toggle-all"/>
+
+          <label htmlFor="toggle-all" className={theList.length === 0 ? "hidden" : "show"}>
+            Mark all as complete
+          </label>
+            
+            <ToDoList
+            buildList = {showList}
+            mainList = {theList}
+            changeList = {setTheList}
+            deleteTask = {setTheList}
+            />
+        </section>
+    )
+  }
   
   function Footer( {removeTodos} ) {
 
