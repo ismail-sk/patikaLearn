@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/patikalearn/static/css/main.98a14495.css",
-    "main.js": "/patikalearn/static/js/main.73838f7e.js",
-    "index.html": "/patikalearn/index.html",
-    "main.98a14495.css.map": "/patikalearn/static/css/main.98a14495.css.map",
-    "main.73838f7e.js.map": "/patikalearn/static/js/main.73838f7e.js.map"
+    "main.css": "/ismail-sk/patikalearn/edit/main/patika/hwork/02/build/static/css/main.98a14495.css",
+    "main.js": "/ismail-sk/patikalearn/edit/main/patika/hwork/02/build/static/js/main.2b3efbe7.js",
+    "index.html": "/ismail-sk/patikalearn/edit/main/patika/hwork/02/build/index.html",
+    "main.98a14495.css.map": "/ismail-sk/patikalearn/edit/main/patika/hwork/02/build/static/css/main.98a14495.css.map",
+    "main.2b3efbe7.js.map": "/ismail-sk/patikalearn/edit/main/patika/hwork/02/build/static/js/main.2b3efbe7.js.map"
   },
   "entrypoints": [
     "static/css/main.98a14495.css",
-    "static/js/main.73838f7e.js"
+    "static/js/main.2b3efbe7.js"
   ]
 }
