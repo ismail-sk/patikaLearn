@@ -7,4 +7,4 @@ This a patika homework. project main template is taken [here.](https://codepen.i
 [Patika.dev React course(Turkish)](https://app.patika.dev/courses/react)
 
 live page example:
-https://ismail-sk.github.io/patikaLearn/
+https://ismail-sk.github.io/patikalearn/
